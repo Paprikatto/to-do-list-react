@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NewTaskForm from "./NewTaskForm";
 
 interface Task {
     id: number;
@@ -40,11 +41,9 @@ export default function ToDoList() {
     }
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={inputValue} onChange={handleInputChange} />
-                <button type="submit">Add</button>
-            </form>
+            <NewTaskForm onSubmit={handleSubmit} inputValue={inputValue} onChange={handleInputChange} />
             <ul>
+                {/*lista tasków */}
                 {
                     tasks.map((item) => (
                         <li
