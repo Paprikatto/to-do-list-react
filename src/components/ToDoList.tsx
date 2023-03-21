@@ -1,44 +1,23 @@
 import { useState } from "react";
 import NewTaskForm from "./NewTaskForm";
 
-interface Task {
+export interface Task {
     id: number;
     text: string;
     done: boolean;
     priority: number;
 }
-interface NewTask {
+export interface NewTask {
     text: string;
     priority: string;
 }
 
 export default function ToDoList() {
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [inputValue, setInputValue] = useState<NewTask>({
-        text: "",
-        priority: "3"
-    });
-
     const priorities = ["high", "medium", "low"]
+    const [tasks, setTasks] = useState<Task[]>([]);
 
-    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setInputValue((prev) => ({
-            ...prev,
-            [event.target.name]: event.target.value
-        }));
-    }
-
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        if (!inputValue.text) return;
-        const newTask: Task = {
-            id: Date.now(),
-            text: inputValue.text,
-            done: false,
-            priority: parseInt(inputValue.priority),
-        };
-        setTasks([...tasks, newTask]);
-        setInputValue({ text: "", priority: "3" });
+    function AddTask(newTask: Task) {
+        setTasks([...tasks, newTask])
     }
 
     function toggleDone(taskId: number) {
@@ -57,7 +36,7 @@ export default function ToDoList() {
     let prevPriority = 0
     return (
         <div>
-            <NewTaskForm onSubmit={handleSubmit} NewTaskData={inputValue} onChange={handleInputChange} />
+            <NewTaskForm addTask={AddTask} />
             <ul>
                 {/*lista tasków */}
                 {
