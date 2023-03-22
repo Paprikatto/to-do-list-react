@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Task, NewTask } from './ToDoList'
 
-export default function NewTaskForm(props: any) {
+export default function NewTaskForm({ addTask }: any) {
     const [inputValue, setInputValue] = useState<NewTask>({
         text: "",
         priority: "3"
@@ -24,7 +24,7 @@ export default function NewTaskForm(props: any) {
             done: false,
             priority: parseInt(inputValue.priority),
         };
-        props.addTask(newTask)
+        addTask(newTask)
         setInputValue({ text: "", priority: "3" });
     }
 
